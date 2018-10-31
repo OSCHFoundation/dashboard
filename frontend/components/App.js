@@ -9,6 +9,7 @@ import AppBar from './AppBar';
 import AccountBalance from './AccountBalance';
 import DistributionProgress from './DistributionProgress';
 import NetworkStatus from './NetworkStatus';
+import ShowAccount from './ShowAccount';
 import Nodes from './Nodes';
 import LedgerCloseChart from './LedgerCloseChart';
 import ListAccounts from './ListAccounts';
@@ -144,6 +145,12 @@ export default class App extends React.Component {
                     />
                   </div>
                   <div className="mui-col-md-8">
+                    <ShowAccount
+                      network="Live network"
+                      horizonURL={horizonLive}
+                      newLedgerEventName={LIVE_NEW_LEDGER}
+                      emitter={this.emitter}
+                    />
                     <LedgerCloseChart
                       network="Live network"
                       horizonURL={horizonLive}
@@ -158,7 +165,7 @@ export default class App extends React.Component {
                       newLedgerEventName={LIVE_NEW_LEDGER}
                       emitter={this.emitter}
                       />
-                    {/*<PublicNetworkLedgersHistoryChart />*/}
+                    <PublicNetworkLedgersHistoryChart />
                   </div>
                 </div>
             </section>

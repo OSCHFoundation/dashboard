@@ -359,3 +359,14 @@ section {
 .node-update-interval-container {
   padding-bottom: 5px;
 }
+
+.publicBox{ text-align: center; }
+.publicBox input{  width: 300px;  height: 32px;  padding: 1px 1px 1px 10px; color: #8C8C8C; background-color: #fff; border: 1px solid #CCC; }
+.publicBox button{ padding: 3px 6px 3px 6px; height: 32px; width: 41px; margin-left: -5px; margin-top: 3px; border: none; background: #3498db; color: #fff;}
+.accountTa{border-spacing: 0;
+    border-collapse: collapse;  width: 500px;}
+.accountTa th{ height: 32px; line-height: 32px; }    
+.accountTa td{ padding-top: 10px; padding-bottom: 9px; padding-left: 15px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd; }
+.greyPublic{ color: #999999; font-size: 14px;}
+.return{ float: right;color: #333; background-color: #fff; border: 1px solid #ccc;}
+.return:hover{color: #333; background-color: #e6e6e6; border-color: #adadad; }
