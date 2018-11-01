@@ -57,7 +57,7 @@ export default class RecentOperations extends React.Component {
     let amount = new BigNumber(am).toFormat(7).replace(/\.*0+$/, '');
     let code;
     if (asset_type == "native") {
-      code = <i>XLM</i>
+      code = <i>OSCH</i>
     } else {
       code = asset_code;
     }
