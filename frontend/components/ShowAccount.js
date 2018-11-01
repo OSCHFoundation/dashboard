@@ -14,7 +14,10 @@ export default class NetworkStatus extends React.Component {
       loading: true,
       balances: [],
       sequence: 0,
-      tPublic: ""
+      tPublic: "",
+      public: "",
+      sPublic: "",
+      tableData: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.findPublic = this.findPublic.bind(this);
@@ -39,10 +42,12 @@ export default class NetworkStatus extends React.Component {
     if(publicId){
       this.setState({isPublic: true});
       this.setState({public: publicId});
+      let start = publicId.substr(0,7)+"..."+publicId.substr(45,publicId.length);
+      this.setState({sPublic: start});
       axios.get(`${this.props.horizonURL}/accounts/${publicId}`)
         .then(res => {
-          console.log(res.data);
           for(let i in res.data.balances){
+            res.data.balances[i].balance = parseInt(res.data.balances[i].balance); 
             if(res.data.balances[i].asset_type == 'native'){
               res.data.balances[i].asset_code = "osch"
             }
@@ -50,8 +55,65 @@ export default class NetworkStatus extends React.Component {
           _this.setState({sequence: res.data.sequence});
           _this.setState({balances: res.data.balances});
         })
+      StellarSdk.Config.setAllowHttp(true);
+      StellarSdk.Network.use(new StellarSdk.Network("osch public network")); 
+      let server = new StellarSdk.Server('http://coast.oschain.io');
+      server.transactions()
+        .forAccount(publicId)
+        .call()
+        .then(function (page) {
+            for(var i=0; i<page.records.length; i++){
+              page.records[i].operations().then(function(res){
+                res.records[0].created_at =  res.records[0].created_at.substr(5,11);
+                if(res.records[0].type === "payment" ){
+                  res.records[0].amount = parseInt(res.records[0].amount) + " " + res.records[0].asset_code;
+                  if(res.records[0].from == publicId){
+                    var ob = {
+                      time: res.records[0].created_at,
+                      operation: res.records[0].transaction_hash, 
+                      num: "-"+res.records[0].amount,
+                      type: res.records[0].type,
+                      to: res.records[0].to,
+                      key:  res.records[0].transaction_hash
+                    };    
+                    let limitArr = _this.state.tableData;
+                    limitArr.push(ob);
+                    _this.setState({tableData: limitArr});
+                  }else{
+                    var ob = {
+                      time: res.records[0].created_at,
+                      operation: res.records[0].transaction_hash, 
+                      num: "+"+res.records[0].amount,
+                      type: res.records[0].type,
+                      to: res.records[0].to,
+                      key: res.records[0].transaction_hash
+                    };
+                    let limitArr = _this.state.tableData;
+                    limitArr.push(ob);
+                    _this.setState({tableData: limitArr});   
+                  }
+                }else if(res.records[0].type=="create_account"){
+                  res.records[0].starting_balance = parseInt(res.records[0].starting_balance);
+                  
+                  console.log(res.records[0]);
+                  var ob = {
+                    time: res.records[0].created_at,
+                    operation: res.records[0].transaction_hash, 
+                    num: "+"+res.records[0].starting_balance+" OSCH",
+                    type: res.records[0].type,
+                    to: res.records[0].to,
+                    key: res.records[0].transaction_hash
+                  };            
+                  let limitArr = _this.state.tableData;
+                  limitArr.push(ob);
+                  _this.setState({tableData: limitArr});
+                }else{
+                           
+                }
+              })
+            }
+        })
     }
-    
   }
   componentWillUnmount() {
     clearInterval(this.timerID);
@@ -66,8 +128,15 @@ export default class NetworkStatus extends React.Component {
 
     const listBalance = this.state.balances.map((num)=>
       <tr key={num.asset_code}>
-        <td>{num.asset_code}</td>
+        <td>{num.asset_code.toLocaleUpperCase()}</td>
         <td>{num.balance}</td>                    
+      </tr>
+    )
+    let hitoryData = this.state.tableData.map((item)=>
+      <tr key={item.key} >                
+        <td>{item.time}</td>
+        <td>{item.type}</td>
+        <td>{item.num}</td>
       </tr>
     )
     return (
@@ -82,17 +151,29 @@ export default class NetworkStatus extends React.Component {
           </Panel>
           :
           <Panel>
-            <div className="widget-name">Address  <span className="greyPublic">{this.state.public}</span><button className="return" onClick={returnMet} >return</button></div>
+            <div className="widget-name">Address  <span className="greyPublic">{this.state.sPublic}</span><button className="return" onClick={returnMet} >return</button></div>
             <div className="accountDetail">
               <table className="accountTa" >
                 <thead>
                   <tr>
-                    <th>Overview</th>
                     <th>Balance</th>
                   </tr>
                 </thead>
                 <tbody>
                   {listBalance}
+                </tbody>
+              </table>
+              <h3>Recent transaction history</h3>
+              <table className="historyTable">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Type</th>
+                    <th>Num</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {hitoryData}
                 </tbody>
               </table>
             </div>  

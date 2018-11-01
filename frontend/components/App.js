@@ -130,20 +130,6 @@ export default class App extends React.Component {
             <section>
                 <h1>Live network status</h1>
                 <div className="row">
-                  <div className="mui-col-md-4">
-                    <NetworkStatus
-                        network="Live network"
-                        horizonURL={horizonLive}
-                        newLedgerEventName={LIVE_NEW_LEDGER}
-                        emitter={this.emitter}
-                    />
-                    <RecentOperations
-                        limit="20"
-                        label="Live network"
-                        horizonURL={horizonLive}
-                        emitter={this.emitter}
-                    />
-                  </div>
                   <div className="mui-col-md-8">
                     <ShowAccount
                       network="Live network"
@@ -167,6 +153,21 @@ export default class App extends React.Component {
                       />
                     <PublicNetworkLedgersHistoryChart />
                   </div>
+                  <div className="mui-col-md-4">
+                    <NetworkStatus
+                        network="Live network"
+                        horizonURL={horizonLive}
+                        newLedgerEventName={LIVE_NEW_LEDGER}
+                        emitter={this.emitter}
+                    />
+                    <RecentOperations
+                        limit="20"
+                        label="Live network"
+                        horizonURL={horizonLive}
+                        emitter={this.emitter}
+                    />
+                  </div>
+                  
                 </div>
             </section>
             {/*<section>
