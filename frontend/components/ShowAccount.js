@@ -66,7 +66,11 @@ export default class NetworkStatus extends React.Component {
               page.records[i].operations().then(function(res){
                 res.records[0].created_at =  res.records[0].created_at.substr(5,11);
                 if(res.records[0].type === "payment" ){
-                  res.records[0].amount = parseInt(res.records[0].amount) + " " + res.records[0].asset_code;
+                  if(res.records[0].asset_code){
+                    res.records[0].amount = parseInt(res.records[0].amount) + " "+res.records[0].asset_code;
+                  }else{
+                    res.records[0].amount = parseInt(res.records[0].amount) + " OSCH";
+                  }
                   if(res.records[0].from == publicId){
                     var ob = {
                       time: res.records[0].created_at,
@@ -94,8 +98,6 @@ export default class NetworkStatus extends React.Component {
                   }
                 }else if(res.records[0].type=="create_account"){
                   res.records[0].starting_balance = parseInt(res.records[0].starting_balance);
-                  
-                  console.log(res.records[0]);
                   var ob = {
                     time: res.records[0].created_at,
                     operation: res.records[0].transaction_hash, 
