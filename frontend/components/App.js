@@ -21,7 +21,7 @@ import TotalCoins from './TotalCoins';
 import TransactionsChart from './TransactionsChart';
 import {LIVE_NEW_LEDGER, TEST_NEW_LEDGER} from '../events';
 
-const horizonLive = "http://coast.oschain.io";
+const horizonLive = "http://coast.myoschain.com";
 //const horizonLive = "https://horizon-mon.stellar-ops.com";
 //const horizonTest = "https://horizon-testnet.stellar.org";
 
