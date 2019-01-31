@@ -51,7 +51,7 @@ export default class NetworkStatus extends React.Component {
   }
   componentDidMount() {
     // Update closedAgo
-    axios.get("http://192.168.1.154:4000/baseInfor")
+    axios.get("http://localhost:4000/baseInfor")
       .then(res => {
         let centerData = res.data; 
 
