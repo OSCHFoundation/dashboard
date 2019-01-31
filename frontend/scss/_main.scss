@@ -40,41 +40,9 @@ section {
 }
 
 .mui-appbar {
-  .mui--text-headline {
-    margin-left: 20px;
-    float: left;
-  }
-
-  a {
-    color: white;
-    text-decoration: none;
-  }
-
-  .left {
-    float: left;
-  }
-
-  .back {
-    margin-left: 20px;
-    font-size: 0.8em;
-    margin-top: 5px;
-  }
-
-  .back a {
-    color: #b3dbfb;
-  }
-
-  .icons {
-    float: right;
-    margin-top: 8px;
-    line-height: 15px;
-
-    .icon {
-      float: left;
-      text-align: center;
-      width: 100px;
-    }
-  }
+  background: #e0e8ed;
+  padding: 0 20px;
+  img{ width: 120px; margin-top: 15px; }
 }
 
 .widget-name {
@@ -373,3 +341,38 @@ section {
 .historyTable{ width: 100%;}
 .historyTable th{ width: 93px;}
 .historyTable td{ padding-top: 10px; padding-bottom: 9px; line-height: 1.42857143; vertical-align: top; }
+
+li{ list-style: none;  padding: 0; margin: 0;}
+.mui-panel{
+  text-align: center;
+  .cardBox{
+    display: inline-block;
+        padding-inline-start: 0;
+    li{ 
+        float: left;
+        margin: 10px;
+        width: 120px;
+        height: 120px;
+        border: 1px solid #dcdee2;
+        border-color: #e8eaec;
+        background: #f1f1f2;
+        border-radius: 4px;
+        font-size: 14px;
+        position: relative;
+        transition: all .2s ease-in-out;
+        text-align: center;
+        padding-top: 1px;
+        h4{
+          color: #20232a;
+          margin-top: 35px;
+          font-size: 28px;
+        }
+        p{ font-size: 13px; }
+      
+    }
+    li:hover {
+      box-shadow: 0 1px 6px rgba(0,0,0,.2);
+      border-color: #eee;
+    }
+  }
+}

@@ -66,7 +66,6 @@ export default class TransactionsChart extends React.Component {
             <span style={{borderBottom: '2px solid #0074B7'}}>Txs
             </span> &amp; <span style={{borderBottom: '2px solid #0074B7'}}>Op</span><span style={{borderBottom: '2px solid #FF6F00'}}>s</span> in the last {this.props.limit} ledgers: {this.props.network}
 
-            <a href={this.url} target="_blank" className="api-link">API</a>
           </div>
           {this.state.loading ?
             'Loading...'

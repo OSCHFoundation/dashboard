@@ -75,7 +75,6 @@ export default class LedgerChartClose extends React.Component {
         <Panel>
           <div className="widget-name">
             Last {this.props.limit} ledgers close times: {this.props.network}
-            <a href={this.url} target="_blank" className="api-link">API</a>
           </div>
           {this.state.loading ?
             'Loading...'

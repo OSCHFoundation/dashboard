@@ -115,8 +115,7 @@ export default class RecentOperations extends React.Component {
     return (
       <Panel>
         <div className="widget-name">
-          Recent operations: {this.props.label} {this.props.account ? this.props.account.substr(0, 4) : ''}
-          <a href={this.url} target="_blank" className="api-link">API</a>
+          Recent operations
         </div>
         <table className="mui-table small">
         <thead>

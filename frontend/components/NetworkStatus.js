@@ -10,7 +10,9 @@ const ledgersInAverageCalculation = 200;
 export default class NetworkStatus extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loading: true};
+    this.state = { 
+      loading: true 
+    };
   }
   // This method will be called when a new ledger is created.
   onNewLedger(ledger) {
@@ -49,6 +51,35 @@ export default class NetworkStatus extends React.Component {
   }
   componentDidMount() {
     // Update closedAgo
+    axios.get("http://192.168.1.154:4000/baseInfor")
+      .then(res => {
+        let centerData = res.data; 
+
+        let boxDataArr = [{
+          type: "Nodes",
+          num: 0,
+        },{
+          type: "Ledger Height",
+          num: 0
+        },{
+          type: "Total Transactions",
+          num: 0
+        },{
+          type: "Total Assets",
+          num: 0
+        },{
+          type: "Total Application",
+          num: 3
+        }];
+        boxDataArr[0].num = res.data.nodeNum;
+        boxDataArr[1].num = res.data.ledgerInfo.num;
+        boxDataArr[2].num = res.data.optAllNumber;
+        boxDataArr[3].num = res.data.assetArr.length;
+        this.setState({ledgerInfo: res.data.ledgerInfo});
+        this.setState({boxDataArr});
+        this.setState({createTime: res.data.createTime});
+        this.setState({centerData: true})
+      })
     this.timerID = setInterval(() => {
       let closedAgo = null;
 
@@ -58,6 +89,7 @@ export default class NetworkStatus extends React.Component {
 
       this.setState({closedAgo});
     }, 1000);
+
     this.getLastLedgers();
   }
 
@@ -68,6 +100,7 @@ export default class NetworkStatus extends React.Component {
   render() {
     let statusClass;
     let statusText;
+    
     let averageLedgerLength = this.state.ledgerLengthSum/ledgersInAverageCalculation;
     if (this.state.loading) {
       statusText = <strong className="mui--text-body2">Loading...</strong>
@@ -87,26 +120,28 @@ export default class NetworkStatus extends React.Component {
         statusText = <strong className="mui--text-body2" style={{color: "red"}}>Network very slow!</strong>
       }
     }
+    let listItems;
+    if(this.state.centerData){
+        listItems = this.state.boxDataArr.map((boxData) =>
+        <li key={boxData.type}>
+          <h4>{boxData.num}</h4>
+          <p>{boxData.type}</p>
+        </li>
+      );
+    }
     return (
-      <Panel>
-        <div className="widget-name">
-          Network Status: {this.props.network}
-        </div>
-        <div className="mui--text-center">
-            { /* Fancy pulse effect */ }
-            <div className="pulse-container">
-              <div className={"pulse pulse1 "+statusClass}></div>
-              <div className={"pulse pulse2 "+statusClass}></div>
-            </div>
-        </div>
+      <Panel className="networkBox">
+        <ul className="cardBox clear">{listItems}</ul>
         <div className="mui--text-caption mui--text-center">
           {statusText}<br />
           {!this.state.loading ?
             <div>
-            Last ledger: #{this.state.lastLedgerSequence} closed ~{ago(this.state.closedAt)} ago in {this.state.lastLedgerLength/1000}s.<br />
-            Average ledger close time in the last {ledgersInAverageCalculation} ledgers: {round(averageLedgerLength, 2)}s.
+            Creation time：  2019-01-29 Last ledger: #{this.state.lastLedgerSequence} closed ~{ago(this.state.closedAt)} ago in {this.state.lastLedgerLength/1000}s.<br />
+            Average ledger close time in the last {ledgersInAverageCalculation} ledgers: {round(averageLedgerLength, 2)}s. <br />
+            BaseFee: {this.state.ledgerInfo.baseFee} OSCH BaseReserve: {this.state.ledgerInfo.baseReserve} OSCH
             </div>
           : ''}
+
         </div>
       </Panel>
     );

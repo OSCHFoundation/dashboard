@@ -128,10 +128,10 @@ export default class App extends React.Component {
         }
         <div id="main" className="mui-container-fluid">
             <section>
-                <h1>Live network status</h1>
+                <h1>Open Source Chain Dashboard</h1>
                 <div className="row">
                   <div className="mui-col-md-8">
-                    <ShowAccount
+                    <NetworkStatus
                       network="Live network"
                       horizonURL={horizonLive}
                       newLedgerEventName={LIVE_NEW_LEDGER}
@@ -151,17 +151,16 @@ export default class App extends React.Component {
                       newLedgerEventName={LIVE_NEW_LEDGER}
                       emitter={this.emitter}
                       />
-                    <PublicNetworkLedgersHistoryChart />
                   </div>
                   <div className="mui-col-md-4">
-                    <NetworkStatus
-                        network="Live network"
-                        horizonURL={horizonLive}
-                        newLedgerEventName={LIVE_NEW_LEDGER}
-                        emitter={this.emitter}
+                    <ShowAccount
+                      network="Live network"
+                      horizonURL={horizonLive}
+                      newLedgerEventName={LIVE_NEW_LEDGER}
+                      emitter={this.emitter}
                     />
                     <RecentOperations
-                        limit="20"
+                        limit="25"
                         label="Live network"
                         horizonURL={horizonLive}
                         emitter={this.emitter}
