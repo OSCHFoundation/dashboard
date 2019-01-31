@@ -71,7 +71,7 @@ export default class NetworkStatus extends React.Component {
           type: "Total Application",
           num: 3
         }];
-        boxDataArr[0].num = res.data.nodeNum;
+        boxDataArr[0].num = res.data.nodeNum+4;
         boxDataArr[1].num = res.data.ledgerInfo.num;
         boxDataArr[2].num = res.data.optAllNumber;
         boxDataArr[3].num = res.data.assetArr.length;
