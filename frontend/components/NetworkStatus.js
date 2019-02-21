@@ -68,7 +68,7 @@ export default class NetworkStatus extends React.Component {
           type: "Total Assets",
           num: 0
         },{
-          type: "Total Application",
+          type: "Total Applications",
           num: 3
         }];
         boxDataArr[0].num = res.data.nodeNum+4;
@@ -79,6 +79,7 @@ export default class NetworkStatus extends React.Component {
         this.setState({boxDataArr});
         this.setState({createTime: res.data.createTime});
         this.setState({centerData: true})
+
       })
     this.timerID = setInterval(() => {
       let closedAgo = null;
@@ -136,7 +137,7 @@ export default class NetworkStatus extends React.Component {
           {statusText}<br />
           {!this.state.loading ?
             <div>
-            Creation time：  2019-01-29 Last ledger: #{this.state.lastLedgerSequence} closed ~{ago(this.state.closedAt)} ago in {this.state.lastLedgerLength/1000}s.<br />
+            Creation time：  2019-01-29 Last ledger: #{this.state.boxDataArr[1].num} closed ~{ago(this.state.closedAt)} ago in {this.state.lastLedgerLength/1000}s.<br />
             Average ledger close time in the last {ledgersInAverageCalculation} ledgers: {round(averageLedgerLength, 2)}s. <br />
             BaseFee: {this.state.ledgerInfo.baseFee} OSCH BaseReserve: {this.state.ledgerInfo.baseReserve} OSCH
             </div>

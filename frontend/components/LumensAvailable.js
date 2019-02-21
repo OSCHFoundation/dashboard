@@ -19,7 +19,6 @@ export default class LumensAvailable extends AmountWidget {
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
-
   updateAmount() {
     availableCoins().then(amount => {
       this.setState({amount, code: "OSCH", loading: false});
