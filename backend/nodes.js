@@ -1,7 +1,9 @@
-import _ from 'lodash';
-import commonNodes from "../common/nodes.js";
-import moment from 'moment';
-import net from 'net';
+const _ = require('lodash');
+const commonNodes = require("../common/nodes.js");
+const moment = require('moment');
+const net = require('net');
+
+/*
 import {redisClient} from './redis.js';
 import * as postgres from './postgres.js';
 
@@ -10,7 +12,7 @@ const NODE_TIMEOUT = -2;
 
 const REDIS_KEY = 'api_nodes';
 
-export const handler = function(req, res) {
+exports.handler = function(req, res) {
   if (process.env.RANDOM_NODES_MEASUREMENTS) {
     return randomNodesHandler(req, res);
   }
@@ -198,3 +200,5 @@ function checkNodes() {
 
 setInterval(checkNodes, 60*1000);
 checkNodes();
+
+*/

@@ -1,7 +1,7 @@
 import express from 'express';
 import proxy from 'express-http-proxy';
 import logger from 'morgan';
-
+import * as nodes from "./nodes.js";
 import * as nodes from "./nodes.js";
 import * as lumens from "./lumens.js";
 import * as ledgers from "./ledgers.js";
