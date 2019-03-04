@@ -2,10 +2,9 @@ const _ = require('lodash');
 const commonNodes = require("../common/nodes.js");
 const moment = require('moment');
 const net = require('net');
-
-/*
-import {redisClient} from './redis.js';
-import * as postgres from './postgres.js';
+const postgres = require('./postgres.js')
+const redis = require('redis');
+const redisClient = redis.createClient();
 
 const NODE_ERROR = -1;
 const NODE_TIMEOUT = -2;
@@ -13,13 +12,13 @@ const NODE_TIMEOUT = -2;
 const REDIS_KEY = 'api_nodes';
 
 exports.handler = function(req, res) {
-  if (process.env.RANDOM_NODES_MEASUREMENTS) {
+  //process.env.RANDOM_NODES_MEASUREMENTS
+  if (false) {
     return randomNodesHandler(req, res);
   }
 
   redisClient.get(REDIS_KEY, function(err, data) {
     if (err) {
-      console.error(err);
       res.sendStatus(500);
       return;
     }
@@ -28,7 +27,6 @@ exports.handler = function(req, res) {
     res.send(data);
   });
 }
-
 function randomNodesHandler(req, res) {
   // Find last timestamp with minutes % 5 == 0
   var date = moment().utc();
@@ -58,8 +56,8 @@ function randomNodesHandler(req, res) {
         status = NODE_ERROR;
       }
 
-      response[node.id].uptime_24h = Math.round(Math.random() * 10000)/100;
-      response[node.id].uptime_30d = Math.round(Math.random() * 10000)/100;
+      response[node.id].uptime_24h = Math.round(8000 + Math.random() * 2000)/100;
+      response[node.id].uptime_30d = Math.round(8000 + Math.random() * 2000)/100;
 
       response[node.id].latest.push({
         date: dates[i],
@@ -114,7 +112,7 @@ function checkNodes() {
           status: result.connectedIn
         })
       }
-
+      console.log(instances);
       return postgres.NodeMeasurement.bulkCreate(instances).then(() => {
         console.log(`Added nodes uptime stats for ${date}!`);
       });
@@ -185,7 +183,6 @@ function checkNodes() {
         });
       })
       .then(() => {
-        // Cache results
         redisClient.set(REDIS_KEY, JSON.stringify(response), function(err, data) {
           if (err) {
             console.error(err);
@@ -201,4 +198,4 @@ function checkNodes() {
 setInterval(checkNodes, 60*1000);
 checkNodes();
 
-*/
+

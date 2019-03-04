@@ -1,11 +1,14 @@
-import Sequelize from 'sequelize';
+const Sequelize = require('sequelize');
 
-export const sequelize = new Sequelize(
+/*exports.sequelize = new Sequelize(
   process.env.DEV ? "postgres://localhost/dashboard?sslmode=disable" : process.env.POSTGRES_URL,
   process.env.DEV ? {} : {dialect: 'postgres', dialectOptions: {ssl: true}}
-);
+);*/
+const sequelize = new Sequelize('postgres://postgres:aixiaoyao@47.101.197.165:5432/dashboard');
 
-export const NodeMeasurement = sequelize.define('node_measurement', {
+exports.sequelize = sequelize;
+
+exports.NodeMeasurement = sequelize.define('node_measurement', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
