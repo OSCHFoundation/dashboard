@@ -68,7 +68,6 @@ function randomNodesHandler(req, res) {
       });
     }
   }
-
   res.send(response);
 }
 

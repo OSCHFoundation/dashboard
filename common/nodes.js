@@ -27,7 +27,7 @@ module.exports = [
   },{
     id: "osch5",
     name: "osch5 (Nordic)",
-    host: "47.127.105.18",
+    host: "40.127.105.18",
     port: 11625,
     publicKey: "GATBF66BQLPLZFGRSFQFOE6ES3KEUHVFFL3OLG42HJWE67BJQGANWMDN"
   },{
