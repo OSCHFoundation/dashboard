@@ -24,6 +24,18 @@ module.exports = [
     host: "13.76.195.125",
     port: 11625,
     publicKey: "GCZKVEHFG7WCSCEAPERSJOXWICTL5FKNCQ6HV2N5OTFKXWGVTNHO7FHM"
+  },{
+    id: "osch5",
+    name: "osch5 (Nordic)",
+    host: "47.127.105.18",
+    port: 11625,
+    publicKey: "GATBF66BQLPLZFGRSFQFOE6ES3KEUHVFFL3OLG42HJWE67BJQGANWMDN"
+  },{
+    id: "osch6",
+    name: "osch6 (Korea)",
+    host: "52.231.159.2",
+    port: 11625,
+    publicKey: "GDTSGVRFCOTQQSEYGPWKLMVQRHZ7CLNLLVEW3IMFHHQS7VBRFF6RIPUE"
   }
 ]
   

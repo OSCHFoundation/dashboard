@@ -6,7 +6,7 @@ import BarChart from 'react-d3-components/lib/BarChart';
 export default class Node extends React.Component {
   constructor(props) {
     super(props);
-    this.colorScale = scale.category10();
+    this.colorScale = scale.category20();
     this.yAxisScale = scale.ordinal().domain([0, 1, 2]).rangePoints([20, 0]);
     this.state = {
       loading: true,

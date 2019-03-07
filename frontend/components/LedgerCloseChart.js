@@ -3,6 +3,7 @@ import Panel from 'muicss/lib/react/panel';
 import axios from 'axios';
 import {scale} from 'd3';
 import BarChart from 'react-d3-components/lib/BarChart';
+import LineChart from 'react-d3-components/lib/LineChart';
 import each from 'lodash/each';
 import clone from 'lodash/clone';
 
@@ -79,7 +80,7 @@ export default class LedgerChartClose extends React.Component {
           {this.state.loading ?
             'Loading...'
             :
-            <BarChart
+            <LineChart
               data={this.state.data}
               width={this.state.chartWidth}
               colorScale={this.colorScale}

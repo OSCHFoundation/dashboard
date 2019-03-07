@@ -4,11 +4,14 @@ const moment = require('moment');
 const net = require('net');
 const postgres = require('./postgres.js')
 const redis = require('redis');
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({
+  host: "r-uf67aefd0fd69af4.redis.rds.aliyuncs.com",
+  password: "oschjsk@77",
+  port: "6379"
+});
 
 const NODE_ERROR = -1;
 const NODE_TIMEOUT = -2;
-
 const REDIS_KEY = 'api_nodes';
 
 exports.handler = function(req, res) {
