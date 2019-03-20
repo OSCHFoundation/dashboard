@@ -3,9 +3,11 @@ import Panel from 'muicss/lib/react/panel';
 import Button from 'muicss/lib/react/button';
 import Node from './Node';
 import axios from 'axios';
-import commonNodes from '../../common/nodes.js';
 import sortBy from 'lodash/sortBy';
 import shuffle from 'lodash/shuffle';
+import commonNodes from '../config/nodes';
+import config from '../config';
+
 
 const ORDER_RANDOM = 'random';
 const ORDER_ALPHABETICAL = 'alphabetical';
@@ -34,7 +36,7 @@ export default class Nodes extends React.Component {
   }
 
   getUptimeData() {
-    axios.get('/api/nodes')
+    axios.get(config.oschServer+"/nodes")
       .then(response => {
         this.setState({uptimeData: response.data});
       });

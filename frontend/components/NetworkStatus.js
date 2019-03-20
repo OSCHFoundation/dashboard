@@ -3,6 +3,7 @@ import Panel from 'muicss/lib/react/panel';
 import axios from 'axios';
 import round from 'lodash/round';
 import {ago} from '../common/time';
+import config from '../config';
 
 // ledgersInAverageCalculation defines how many last ledgers should be
 // considered when calculating average ledger length.
@@ -51,7 +52,7 @@ export default class NetworkStatus extends React.Component {
   }
   componentDidMount() {
     // Update closedAgo
-    axios.get("http://47.101.197.165:9000/baseInfor")
+    axios.get(config.oschServer+"/baseInfor")
       .then(res => {
         let centerData = res.data; 
 
@@ -90,7 +91,6 @@ export default class NetworkStatus extends React.Component {
 
       this.setState({closedAgo});
     }, 1000);
-
     this.getLastLedgers();
   }
 
