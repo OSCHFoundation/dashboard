@@ -12,7 +12,8 @@ export default class NetworkStatus extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      loading: true 
+      loading: true,
+      boxDataArr: []
     };
   }
   // This method will be called when a new ledger is created.
