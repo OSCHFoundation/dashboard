@@ -11,7 +11,7 @@ export default class App extends Component {
         <AppBar />
         <Switch>
           <Route exact path='/' component={Main} />
-          <Route path='/accounts' component={Accounts} />
+          <Route path='/accounts/:accountId' component={Accounts} />
         </Switch>
       </div>
     )
