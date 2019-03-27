@@ -22,7 +22,7 @@ export default class AppBar extends React.Component {
     return <div>
       <div className="mui-appbar" >
         <div className="fl">
-          <img  src="https://oschpublicchain.oss-cn-shanghai.aliyuncs.com/dashboard/logo.png" />
+        <Link to='/' ><img  src="https://oschpublicchain.oss-cn-shanghai.aliyuncs.com/dashboard/logo.png" /></Link>
         </div>
         <Input className="fl" style={InputStyle} placeholder="请输入你要搜索的内容" value={this.state.value} onChange={this.changeHangle} />
         <Link to={this.state.searchTo} >搜索</Link>

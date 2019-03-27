@@ -28,7 +28,7 @@ export default class RecentOperations extends React.Component {
       return;
     }
     this.operationsLoading = true;
-
+    console.log(this.url);
     axios.get(this.url)
       .then(response => {
         let records = response.data._embedded.records;
