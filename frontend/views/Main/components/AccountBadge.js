@@ -1,6 +1,6 @@
 import React from 'react';
 import isObject from 'lodash/isObject';
-import {knownAccounts} from '../common/known_accounts';
+import {knownAccounts} from '../../../common/known_accounts';
 
 export default class AccountBadge extends React.Component {
   render() {

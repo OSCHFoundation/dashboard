@@ -2,7 +2,7 @@ import React from 'react';
 import Panel from 'muicss/lib/react/panel';
 import axios from 'axios';
 import round from 'lodash/round';
-import {ago} from '../common/time';
+import {ago} from '../../../common/time';
 
 // ledgersInAverageCalculation defines how many last ledgers should be
 // considered when calculating average ledger length.

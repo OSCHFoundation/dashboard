@@ -8,7 +8,7 @@ import defaults from 'lodash/defaults';
 import AccountBadge from './AccountBadge';
 import AssetLink from './AssetLink';
 import BigNumber from 'bignumber.js';
-import {ago} from '../common/time';
+import {ago} from '../../../common/time';
 
 export default class RecentOperations extends React.Component {
   constructor(props) {

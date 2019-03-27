@@ -5,25 +5,16 @@ import {EventEmitter} from 'fbemitter';
 import axios from 'axios';
 import {Server} from 'stellar-sdk';
 import {Config} from 'stellar-sdk';
-import AppBar from './AppBar';
-import AccountBalance from './AccountBalance';
-import DistributionProgress from './DistributionProgress';
+import AppBar from '../../../components/AppBar';
 import NetworkStatus from './NetworkStatus';
 import ShowAccount from './ShowAccount';
 import Nodes from './Nodes';
 import LedgerCloseChart from './LedgerCloseChart';
-import ListAccounts from './ListAccounts';
-import LumensAvailable from './LumensAvailable';
-import LumensDistributed from './LumensDistributed';
-import PublicNetworkLedgersHistoryChart from './PublicNetworkLedgersHistoryChart';
 import RecentOperations from './RecentOperations';
-import TotalCoins from './TotalCoins';
 import TransactionsChart from './TransactionsChart';
 import {LIVE_NEW_LEDGER, TEST_NEW_LEDGER} from '../events';
 
 const horizonLive = "http://coast.myoschain.com";
-//const horizonLive = "https://horizon-mon.stellar-ops.com";
-//const horizonTest = "https://horizon-testnet.stellar.org";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -102,8 +93,8 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div id="main" className={this.state.forceTheme ? "force" : null}>
-        <AppBar forceTheme={this.state.forceTheme} turnOffForceTheme={this.turnOffForceTheme.bind(this)} />
+      <div id="test" className={this.state.forceTheme ? "force" : null}>
+        
         {this.chrome57 ? 
           <Panel>
             <div className="mui--text-subhead mui--text-dark-secondary">
@@ -169,23 +160,6 @@ export default class App extends React.Component {
                   
                 </div>
             </section>
-            {/*<section>
-                <h1>Lumen distribution</h1>
-                <div className="mui-col-md-4">
-                  <DistributionProgress horizonLiveURL={horizonLive} />
-                </div>
-                <div className="mui-col-md-4">
-                  <TotalCoins
-                    horizonURL={horizonLive}
-                    />
-                </div>
-                <div className="mui-col-md-4">
-                  <LumensAvailable />
-                </div>
-                <div className="mui-col-md-4">
-                  <LumensDistributed />
-                </div>
-            </section>*/}
             <section>
                 <h1>Featured live network nodes</h1>
                 <Nodes />

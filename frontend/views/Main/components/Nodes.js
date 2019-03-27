@@ -5,8 +5,8 @@ import Node from './Node';
 import axios from 'axios';
 import sortBy from 'lodash/sortBy';
 import shuffle from 'lodash/shuffle';
-import commonNodes from '../config/nodes';
-import config from '../config';
+import commonNodes from '../../../config/nodes';
+import config from '../../../config';
 
 
 const ORDER_RANDOM = 'random';
