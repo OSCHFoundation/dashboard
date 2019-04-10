@@ -112,6 +112,7 @@ export default class NetworkStatus extends React.Component {
         this.setState({ boxDataArr });
         this.setState({ createTime: res.data.createTime });
         this.setState({ centerData: true });
+        this.getLastLedgers();
       });
     }
     this.timerID = setInterval(() => {
@@ -123,7 +124,6 @@ export default class NetworkStatus extends React.Component {
 
       this.setState({ closedAgo });
     }, 1000);
-    this.getLastLedgers();
   }
 
   componentWillUnmount() {
