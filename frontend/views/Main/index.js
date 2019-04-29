@@ -1,9 +1,8 @@
 import React from "react";
 import Panel from "muicss/lib/react/panel";
-import Button from "muicss/lib/react/button";
 import { EventEmitter } from "fbemitter";
 import axios from "axios";
-import { Server, Config } from "stellar-sdk";
+import { Server, Config } from "osch-sdk";
 import NetworkStatus from "./components/NetworkStatus";
 import OldNetstatus from "./components/OldNetstatus";
 import ShowAccount from "./components/ShowAccount";
@@ -30,7 +29,7 @@ export default class Main extends React.Component {
   }
   reloadOnConnection() {
     return axios
-      .get("https://s3-us-west-1.amazonaws.com/stellar-heartbeat/index.html", {
+      .get(horizonLive, {
         timeout: 5 * 1000
       })
       .then(() => location.reload())
@@ -40,14 +39,12 @@ export default class Main extends React.Component {
     if (!this.lastTime) {
       this.lastTime = new Date();
     }
-
     let currentTime = new Date();
     if (currentTime - this.lastTime > 10 * 60 * 1000) {
       this.setState({ sleeping: true });
       this.reloadOnConnection();
       return;
     }
-
     this.lastTime = new Date();
     setTimeout(this.sleepDetector.bind(this), 5000);
   }

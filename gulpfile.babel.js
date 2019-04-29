@@ -12,7 +12,7 @@ gulp.task('default', ['develop']);
 var webpackOptions = {
   entry: {
     app: "./frontend/app.js",
-    vendor: ["react", "react-dom", "muicss", "stellar-sdk", "axios", "d3", "fbemitter"]
+    vendor: ["react", "react-dom", "muicss", "osch-sdk", "axios", "d3", "fbemitter"]
   },
   devtool: "source-map",
   resolve: {

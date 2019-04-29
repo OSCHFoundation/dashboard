@@ -1,4 +1,4 @@
-import stellarSdk from 'stellar-sdk';
+import stellarSdk from 'osch-sdk';
 import moment from 'moment';
 import {redisClient} from './redis.js';
 

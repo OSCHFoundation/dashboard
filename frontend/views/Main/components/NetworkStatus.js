@@ -11,8 +11,7 @@ export default class NetworkStatus extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      boxDataArr: []
+      loading: true
     };
   }
   // This method will be called when a new ledger is created.
@@ -81,37 +80,24 @@ export default class NetworkStatus extends React.Component {
     // Update closedAgo
     if (this.props.network === "Live network") {
       axios.get(config.oschServer + "/baseInfor").then(res => {
-        let centerData = res.data;
-        let boxDataArr = [
-          {
-            type: "Nodes",
-            num: 0
-          },
-          {
-            type: "Ledger Height",
-            num: 0
-          },
-          {
-            type: "Total Transactions",
-            num: 0
-          },
-          {
-            type: "Total Assets",
-            num: 0
-          },
-          {
-            type: "Total Applications",
-            num: 3
-          }
-        ];
-        boxDataArr[0].num = res.data.nodeNum + 4;
-        boxDataArr[1].num = res.data.ledgerInfo.num;
-        boxDataArr[2].num = res.data.optAllNumber;
-        boxDataArr[3].num = res.data.assetArr.length;
-        this.setState({ ledgerInfo: res.data.ledgerInfo });
-        this.setState({ boxDataArr });
-        this.setState({ createTime: res.data.createTime });
-        this.setState({ centerData: true });
+        const {
+          createTime,
+          ledgerInfo,
+          optAllNumber,
+          nodeNum,
+          assetArr,
+          appNum
+        } = res.data;
+
+        this.setState({
+          optAllNumber,
+          nodeNum: nodeNum + 4,
+          assetLength: assetArr.length,
+          ledgerInfo,
+          createTime,
+          appNum,
+          centerData: true
+        });
         this.getLastLedgers();
       });
     }
@@ -172,13 +158,39 @@ export default class NetworkStatus extends React.Component {
       }
     }
     let listItems;
+    const {
+      ledgerLengthSum,
+      lastLedgerSequence,
+      nodeNum,
+      optAllNumber,
+      assetLength,
+      appNum
+    } = this.state;
     if (this.state.centerData) {
-      listItems = this.state.boxDataArr.map(boxData => (
-        <li key={boxData.type}>
-          <h4>{boxData.num}</h4>
-          <p>{boxData.type}</p>
-        </li>
-      ));
+      listItems = (
+        <ul>
+          <li>
+            <h4>{lastLedgerSequence}</h4>
+            <p>Ledger Height</p>
+          </li>
+          <li>
+            <h4>{nodeNum}</h4>
+            <p>Nodes</p>
+          </li>
+          <li>
+            <h4>{optAllNumber}</h4>
+            <p>Total Transactions</p>
+          </li>
+          <li>
+            <h4>{assetLength}</h4>
+            <p>Total Assets</p>
+          </li>
+          <li>
+            <h4>{appNum}</h4>
+            <p>Total Applications</p>
+          </li>
+        </ul>
+      );
     }
     return (
       <Panel className="networkBox">
@@ -188,9 +200,9 @@ export default class NetworkStatus extends React.Component {
           <br />
           {!this.state.loading ? (
             <div>
-              Creation time： 2019-01-29 Last ledger: #
-              {this.state.boxDataArr[1].num} closed ~{ago(this.state.closedAt)}{" "}
-              ago in {this.state.lastLedgerLength / 1000}s.
+              Creation time： 2019-01-29 Last ledger: #{lastLedgerSequence}{" "}
+              closed ~{ago(this.state.closedAt)} ago in{" "}
+              {this.state.lastLedgerLength / 1000}s.
               <br />
               Average ledger close time in the last{" "}
               {ledgersInAverageCalculation} ledgers:{" "}
