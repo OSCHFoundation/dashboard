@@ -5,7 +5,7 @@ import App from './views/App';
 
 require('./index.html');
 require('./scss/index.scss');
-
+ 
 ReactDOM.render(
   <HashRouter>
     <App></App>

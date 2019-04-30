@@ -8,6 +8,7 @@
   },
   "author": "sawyer",
   "dependencies": {
+    "antd": "^3.16.6",
     "axios": "^0.15.3",
     "babel-core": "^6.23.0",
     "babel-loader": "^6.3.2",

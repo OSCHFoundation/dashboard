@@ -2,7 +2,7 @@ import React from "react";
 import Panel from "muicss/lib/react/panel";
 import { EventEmitter } from "fbemitter";
 import axios from "axios";
-import { Server, Config } from "osch-sdk";
+import { Server } from "osch-sdk";
 import NetworkStatus from "./components/NetworkStatus";
 import OldNetstatus from "./components/OldNetstatus";
 import ShowAccount from "./components/ShowAccount";
@@ -10,11 +10,11 @@ import Nodes from "./components/Nodes";
 import LedgerCloseChart from "./components/LedgerCloseChart";
 import RecentOperations from "./components/RecentOperations";
 import TransactionsChart from "./components/TransactionsChart";
-
 import { LIVE_NEW_LEDGER, TEST_NEW_LEDGER } from "../../events";
 
-const horizonLive = "http://coast.myoschain.com";
-const horizonTest = "http://tcoast.myoschain.com";
+const coastLive = "http://coast.myoschain.com";
+const coastTest = "http://tcoast.myoschain.com";
+
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -23,13 +23,12 @@ export default class Main extends React.Component {
     this.state = {};
   }
   componentDidMount() {
-    Config.setAllowHttp(true);
-    this.streamLedgers(horizonLive, LIVE_NEW_LEDGER);
-    //this.streamLedgers(horizonTest, TEST_NEW_LEDGER);
+    this.streamLedgers(coastLive, LIVE_NEW_LEDGER);
+    //this.streamLedgers(coastTest, TEST_NEW_LEDGER);
   }
   reloadOnConnection() {
     return axios
-      .get(horizonLive, {
+      .get(coastLive, {
         timeout: 5 * 1000
       })
       .then(() => location.reload())
@@ -81,20 +80,20 @@ export default class Main extends React.Component {
               <div className="mui-col-md-8">
                 <NetworkStatus
                   network="Live network"
-                  horizonURL={horizonLive}
+                  horizonURL={coastLive}
                   newLedgerEventName={LIVE_NEW_LEDGER}
                   emitter={this.emitter}
                 />
                 <LedgerCloseChart
                   network="Live network"
-                  horizonURL={horizonLive}
+                  horizonURL={coastLive}
                   limit="200"
                   newLedgerEventName={LIVE_NEW_LEDGER}
                   emitter={this.emitter}
                 />
                 <TransactionsChart
                   network="Live network"
-                  horizonURL={horizonLive}
+                  horizonURL={coastLive}
                   limit="200"
                   newLedgerEventName={LIVE_NEW_LEDGER}
                   emitter={this.emitter}
@@ -103,14 +102,14 @@ export default class Main extends React.Component {
               <div className="mui-col-md-4">
                 <ShowAccount
                   network="Live network"
-                  horizonURL={horizonLive}
+                  horizonURL={coastLive}
                   newLedgerEventName={LIVE_NEW_LEDGER}
                   emitter={this.emitter}
                 />
                 <RecentOperations
-                  limit="25"
+                  limit="30"
                   label="Live network"
-                  horizonURL={horizonLive}
+                  horizonURL={coastLive}
                   emitter={this.emitter}
                 />
               </div>
@@ -123,24 +122,23 @@ export default class Main extends React.Component {
           <section>
             <h1>Test network status</h1>
             <div className="mui-col-md-8">
-            
               <OldNetstatus
                 network="Test network"
-                horizonURL={horizonTest}
+                horizonURL={coastTest}
                 newLedgerEventName={TEST_NEW_LEDGER}
                 emitter={this.emitter}
               />
              
               <LedgerCloseChart
                 network="Test network"
-                horizonURL={horizonTest}
+                horizonURL={coastTest}
                 limit="100"
                 newLedgerEventName={TEST_NEW_LEDGER}
                 emitter={this.emitter}
               />
               <TransactionsChart
                 network="Test network"
-                horizonURL={horizonTest}
+                horizonURL={coastTest}
                 limit="100"
                 newLedgerEventName={TEST_NEW_LEDGER}
                 emitter={this.emitter}
@@ -150,7 +148,7 @@ export default class Main extends React.Component {
               <RecentOperations
                 limit="25"
                 label="Test network"
-                horizonURL={horizonTest}
+                horizonURL={coastTest}
                 emitter={this.emitter}
               />
             </div>

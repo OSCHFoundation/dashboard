@@ -1,6 +1,7 @@
 import React from 'react';
 import Panel from 'muicss/lib/react/panel';
 import axios from 'axios';
+import { Server } from "osch-sdk";
 import round from 'lodash/round';
 import {ago} from '../../../common/time';
 
@@ -55,9 +56,7 @@ export default class NetworkStatus extends React.Component {
           _this.setState({sequence: res.data.sequence});
           _this.setState({balances: res.data.balances});
         })
-      StellarSdk.Config.setAllowHttp(true);
-      StellarSdk.Network.use(new StellarSdk.Network("osch public network")); 
-      let server = new StellarSdk.Server('http://coast.oschain.io');
+      let server = new Server('http://coast.myoschain.com');
       server.transactions()
         .forAccount(publicId)
         .call()
