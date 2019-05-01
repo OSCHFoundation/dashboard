@@ -1,35 +1,57 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import Input from 'muicss/lib/react/input';
+import React from "react";
+import { Link, withRouter } from "react-router-dom";
+import { Input, Row, Col } from "antd";
+const Search = Input.Search;
+const InputStyle = {
+  marginTop: "18px",
+  marginBottom: "18px",
+  paddingLeft: "10px",
+  marginLeft: "10px"
+};
 
-const InputStyle = { marginLeft: '500px', width:  '400px', paddingLeft: '10px' };
-export default class AppBar extends React.Component {
-  constructor(props){
+class AppBar extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       searchTo: "/404",
       value: ""
-    }
+    };
     this.changeHangle = this.changeHangle.bind(this);
   }
-  changeHangle(event){
+  changeHangle(event) {
     this.setState({
       value: event.target.value,
-      searchTo: `/accounts/${event.target.value}`
+      searchTo: `/account/${event.target.value}`
     });
   }
   render() {
-    return <div>
-      <div className="mui-appbar" >
-        <div className="fl">
-        <Link to='/' ><img  src="https://oschpublicchain.oss-cn-shanghai.aliyuncs.com/dashboard/logo.png" /></Link>
-        </div>
-        <Input className="fl" style={InputStyle} placeholder="请输入你要搜索的内容" value={this.state.value} onChange={this.changeHangle} />
-        <Link to={this.state.searchTo} >搜索</Link>
-        <div className="fr">
-          <a href="https://www.myoschain.com/" >Community</a>
+    return (
+      <div>
+        <div className="mui-appbar">
+          <Row>
+            <Col md={2} xs={4} >
+              <Link to="/" className="fl">
+                <img src="https://oschpublicchain.oss-cn-shanghai.aliyuncs.com/dashboard/logo.png" />
+              </Link>
+            </Col>
+            <Col md={6} xs={24} >
+              <Search
+                className="fl"
+                style={InputStyle}
+                placeholder="input your public"
+                onSearch={value => this.props.history.push("/account/" + value)}
+                enterButton
+              />
+            </Col>
+            <Col md={2} xs={0} offset={13} >
+              <div className="fr">
+                <a href="https://www.myoschain.com/">Community</a>
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
-    </div>
+    );
   }
 }
+export default withRouter(AppBar);

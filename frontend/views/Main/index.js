@@ -100,14 +100,8 @@ export default class Main extends React.Component {
                 />
               </div>
               <div className="mui-col-md-4">
-                <ShowAccount
-                  network="Live network"
-                  horizonURL={coastLive}
-                  newLedgerEventName={LIVE_NEW_LEDGER}
-                  emitter={this.emitter}
-                />
                 <RecentOperations
-                  limit="30"
+                  limit="35"
                   label="Live network"
                   horizonURL={coastLive}
                   emitter={this.emitter}
