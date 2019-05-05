@@ -13,7 +13,7 @@ import TransactionsChart from "./components/TransactionsChart";
 import { LIVE_NEW_LEDGER, TEST_NEW_LEDGER } from "../../events";
 
 const coastLive = "http://coast.myoschain.com";
-const coastTest = "http://tcoast.myoschain.com";
+const coastTest = "http://coast.hour.org.cn";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -23,8 +23,8 @@ export default class Main extends React.Component {
     this.state = {};
   }
   componentDidMount() {
-    this.streamLedgers(coastLive, LIVE_NEW_LEDGER);
-    //this.streamLedgers(coastTest, TEST_NEW_LEDGER);
+    //this.streamLedgers(coastLive, LIVE_NEW_LEDGER);
+    this.streamLedgers(coastTest, TEST_NEW_LEDGER);
   }
   reloadOnConnection() {
     return axios
@@ -75,46 +75,7 @@ export default class Main extends React.Component {
         ) : null}
         <div id="main" className="mui-container-fluid">
           <section>
-            <h1>Open Source Chain Dashboard</h1>
-            <div className="row clear">
-              <div className="mui-col-md-8">
-                <NetworkStatus
-                  network="Live network"
-                  horizonURL={coastLive}
-                  newLedgerEventName={LIVE_NEW_LEDGER}
-                  emitter={this.emitter}
-                />
-                <LedgerCloseChart
-                  network="Live network"
-                  horizonURL={coastLive}
-                  limit="200"
-                  newLedgerEventName={LIVE_NEW_LEDGER}
-                  emitter={this.emitter}
-                />
-                <TransactionsChart
-                  network="Live network"
-                  horizonURL={coastLive}
-                  limit="200"
-                  newLedgerEventName={LIVE_NEW_LEDGER}
-                  emitter={this.emitter}
-                />
-              </div>
-              <div className="mui-col-md-4">
-                <RecentOperations
-                  limit="35"
-                  label="Live network"
-                  horizonURL={coastLive}
-                  emitter={this.emitter}
-                />
-              </div>
-            </div>
-          </section>
-          <section>
-            <h1>Featured live network nodes</h1>
-            <Nodes />
-          </section>
-          <section>
-            <h1>Test network status</h1>
+            <h1>Time network status</h1>
             <div className="mui-col-md-8">
               <OldNetstatus
                 network="Test network"

@@ -32,6 +32,7 @@ const columns = [
     render: text => <a href={" http://coast.oschain.io/operations/"+text} >{text}</a>
   }
 ];
+const coastTest = "http://coast.hour.org.cn";
 export default class Accounts extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +50,7 @@ export default class Accounts extends Component {
         location="/";
       }, 2000);
     }
-    const server = new Server("http://coast.myoschain.com");
+    const server = new Server(coastTest);
     server.loadAccount(this.accountId).then(res => {
       let { balances } = res;
       for(let i in balances){
