@@ -186,7 +186,7 @@ export default class NetworkStatus extends React.Component {
             <p>Total Assets</p>
           </li>
           <li>
-            <h4>{appNum}</h4>
+            <h4>7</h4>
             <p>Total Applications</p>
           </li>
         </ul>

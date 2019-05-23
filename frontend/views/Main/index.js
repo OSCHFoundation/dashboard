@@ -24,7 +24,7 @@ export default class Main extends React.Component {
   }
   componentDidMount() {
     this.streamLedgers(coastLive, LIVE_NEW_LEDGER);
-    //this.streamLedgers(coastTest, TEST_NEW_LEDGER);
+    this.streamLedgers(coastTest, TEST_NEW_LEDGER);
   }
   reloadOnConnection() {
     return axios
@@ -49,18 +49,33 @@ export default class Main extends React.Component {
   }
   streamLedgers(horizonURL, eventName) {
     // Get last ledger
-    var _this = this;
+    const _this = this;
+    let lastLedger;
     axios.get(`${horizonURL}/ledgers?order=desc&limit=1`).then(response => {
       let lastLedger = response.data._embedded.records[0];
-      new Server(horizonURL)
-        .ledgers()
-        .cursor(lastLedger.paging_token)
-        .stream({
-          onmessage: function ledger(ledger1) {
-            _this.emitter.emit(eventName, ledger1);
+      setInterval(() => {
+        axios.get(`${horizonURL}/ledgers?order=desc&limit=1`).then(response => {
+          let newLedger = response.data._embedded.records[0];
+          if (lastLedger.sequence !== newLedger.sequence) {
+            console.log(lastLedger.sequence);
+            lastLedger = newLedger;
+            _this.emitter.emit(eventName, newLedger);
           }
         });
+      }, 3000);
     });
+    // new Server(horizonURL)
+    //   .ledgers()
+    //   .cursor(lastLedger.paging_token)
+    //   .then((ledger)=>{
+    //     console.log(ledger);
+    //   })
+    // .stream({
+    //   onmessage: function ledger(ledger1) {
+    //     console.log(ledger1);
+    //     _this.emitter.emit(eventName, ledger1);
+    //   }
+    // });
   }
 
   render() {
@@ -122,7 +137,6 @@ export default class Main extends React.Component {
                 newLedgerEventName={TEST_NEW_LEDGER}
                 emitter={this.emitter}
               />
-             
               <LedgerCloseChart
                 network="Test network"
                 horizonURL={coastTest}
