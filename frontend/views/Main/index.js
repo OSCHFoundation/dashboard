@@ -57,7 +57,6 @@ export default class Main extends React.Component {
         axios.get(`${horizonURL}/ledgers?order=desc&limit=1`).then(response => {
           let newLedger = response.data._embedded.records[0];
           if (lastLedger.sequence !== newLedger.sequence) {
-            console.log(lastLedger.sequence);
             lastLedger = newLedger;
             _this.emitter.emit(eventName, newLedger);
           }
